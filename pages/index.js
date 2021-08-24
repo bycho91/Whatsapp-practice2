@@ -11,7 +11,7 @@ export default function Home() {
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Sidebar photo={user.photoURL} />
+      <Sidebar photo={user.photoURL} name={user.displayName} />
     </div>
   );
 }

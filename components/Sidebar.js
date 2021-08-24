@@ -9,7 +9,7 @@ import * as EmailValidator from "email-validator";
 import { auth, db } from "../firebase";
 import Chat from "@/components/Chat";
 
-const Sidebar = ({ photo }) => {
+const Sidebar = ({ photo, name }) => {
   const [user] = useAuthState(auth);
 
   //THIS CREATES A REAL TIME LISTENER TO ALL THE CHATS WITH LOGIN EMAIL
@@ -46,11 +46,14 @@ const Sidebar = ({ photo }) => {
   // the double '!!' converts the statement into one that returns true if truthy and false if falsey
 
   return (
-    <SidebarContainer className="flex flex-col w-[20%] max-w-[400px] min-w-[300px]">
-      <Header className="flex justify-between items-center sticky z-10 bg-white top-0 border-b-[1px] border-[whitesmoke] mb-2">
-        <IconButton>
-          <UserAvatar onClick={() => auth.signOut()} src={photo} />
-        </IconButton>
+    <SidebarContainer>
+      <Header className="flex justify-between items-center sticky z-10 bg-white top-0 border-b-[1px] border-[whitesmoke] mb-2 h-[70px]">
+        <div className="user flex items-center space-x-1">
+          <IconButton>
+            <UserAvatar onClick={() => auth.signOut()} src={photo} />
+          </IconButton>
+          <h1 className="text-xl">{name}</h1>
+        </div>
         <IconsContainer>
           <IconButton>
             <ChatIcon />
@@ -81,7 +84,21 @@ const Sidebar = ({ photo }) => {
 
 export default Sidebar;
 
-const SidebarContainer = styled.div``;
+const SidebarContainer = styled.div`
+  flex: 0.45;
+  border-right: 1px solid whitesmoke;
+  height: 100vh;
+  min-width: 300px;
+  max-width: 350px;
+  overflow-y: scroll;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+`;
 const Header = styled.div``;
 const UserAvatar = styled(Avatar)`
   &&& {
